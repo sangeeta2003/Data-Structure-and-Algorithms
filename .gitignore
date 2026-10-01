@@ -1,0 +1,34 @@
+# Compiled C++ files
+
+*.exe
+*.out
+*.o
+*.obj
+
+# Debug files
+
+*.dSYM/
+*.stackdump
+
+# VS Code
+
+.vscode/
+
+# IDE files
+
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Temporary files
+
+*.tmp
+*.temp
+*~
+
+# OS files
+
+.DS_Store
+Thumbs.db
