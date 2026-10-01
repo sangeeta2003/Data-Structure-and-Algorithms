@@ -56,5 +56,6 @@ The peak is at mid or somewhere to the left.
 So:
 
 high = mid;
+// In this we use First occurance when we mid a[mid] > a[mid+1]
 
 Notice that we use high = mid, not mid - 1, because mid itself could be the peak.
