@@ -4,7 +4,7 @@
 Given `n` pairs of parentheses, generate all possible **well-formed** parentheses combinations.
 
 Example:
-```text
+```text 
 n = 3
 
 ((()))
