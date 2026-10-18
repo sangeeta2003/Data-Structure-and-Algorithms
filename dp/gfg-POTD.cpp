@@ -14,6 +14,7 @@ class Solution {
                     // Edge: i -> 3 * i
                     if (3 * i <= n) {
                         dp[3 * i] = min(dp[3 * i], dp[i] + 1);
+                        
                     }
                 }
 
