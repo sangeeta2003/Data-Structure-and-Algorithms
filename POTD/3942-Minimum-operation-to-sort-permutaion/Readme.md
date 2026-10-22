@@ -159,3 +159,186 @@ Returns the smaller of two candidate operation counts.
 - Use counters to verify that the complete permutation follows a pattern.
 - Compare candidate operation counts with `min()`.
 - Understand the permitted operations before deriving the final formulas.
+
+
+
+2)
+# Minimum Operations to Sort a Permutation
+
+## 1. Main Idea
+
+The code checks two possible patterns:
+
+1. **Ascending circular pattern:** Every element is one greater than the previous element, wrapping from `n - 1` back to `0`.
+2. **Descending circular pattern:** Every element is one smaller than the previous element, wrapping from `0` back to `n - 1`.
+
+If one of these patterns matches the entire array, the code calculates the answer. Otherwise, it returns `-1`.
+
+## 2. Step 1: Initialize the variables
+
+```cpp
+int n = nums.size();
+
+int asc = 1;
+int dsc = 1;
+```
+
+- `n` stores the size of the array.
+- `asc` counts how many elements belong to the ascending pattern.
+- `dsc` counts how many elements belong to the descending pattern.
+
+Both counters start at `1` because we initially count the first element.
+
+## 3. Step 2: Check the ascending pattern
+
+```cpp
+if (nums[i] == (nums[i - 1] + 1) % n) {
+    asc++;
+}
+```
+
+This checks whether the current element is one greater than the previous element, allowing circular wraparound.
+
+### Example
+
+Suppose:
+
+```text
+nums = [1, 2, 3, 0]
+n = 4
+```
+
+| Previous | Current | Expected value | Match? |
+|---:|---:|---:|---|
+| 1 | 2 | `(1 + 1) % 4 = 2` | Yes |
+| 2 | 3 | `(2 + 1) % 4 = 3` | Yes |
+| 3 | 0 | `(3 + 1) % 4 = 0` | Yes |
+
+Every comparison matches, so `asc = 4`.
+
+### Why do we use `% n`?
+
+The modulo operator allows the sequence to wrap around.
+
+For example:
+
+```cpp
+(3 + 1) % 4 == 0
+```
+
+Without `% n`, the expected value would be `4` instead of `0`.
+
+## 4. Step 3: Check the descending pattern
+
+```cpp
+if (nums[i - 1] == (nums[i] + 1) % n) {
+    dsc++;
+}
+```
+
+This checks whether the previous element is one greater than the current element, again allowing circular wraparound.
+
+For example:
+
+```text
+nums = [3, 2, 1, 0]
+```
+
+The comparisons are:
+
+- `3 == (2 + 1) % 4` → true
+- `2 == (1 + 1) % 4` → true
+- `1 == (0 + 1) % 4` → true
+
+Therefore, `dsc = 4`.
+
+## 5. Step 4: Calculate the answer for ascending order
+
+```cpp
+if (asc == n) {
+    int first = nums[0];
+
+    if (first == 0) {
+        return 0;
+    }
+
+    int option1 = n - first;
+    int option2 = first + 2;
+
+    return min(option1, option2);
+}
+```
+
+If `asc == n`, the complete array follows the ascending circular pattern.
+
+- `first` stores the first element.
+- If `first == 0`, the array is already in the required sorted order, so return `0`.
+- Otherwise, calculate two candidate operation counts.
+
+For example, if `n = 5` and `first = 2`:
+
+```text
+option1 = 5 - 2 = 3
+option2 = 2 + 2 = 4
+```
+
+The answer is:
+
+```cpp
+min(3, 4) = 3;
+```
+
+The `min()` function chooses the smaller candidate.
+
+## 6. Step 5: Calculate the answer for descending order
+
+```cpp
+if (dsc == n) {
+    int last = nums[n - 1];
+
+    int option1 = n - last;
+    int option2 = last;
+
+    return min(option1, option2) + 1;
+}
+```
+
+If `dsc == n`, the complete array follows the descending circular pattern.
+
+- `last` stores the last element.
+- `option1` calculates `n - last`.
+- `option2` is equal to `last`.
+- `min()` chooses the smaller candidate, and the code adds `1`.
+
+For example, if `n = 5` and `last = 2`:
+
+```text
+option1 = 5 - 2 = 3
+option2 = 2
+
+answer = min(3, 2) + 1
+       = 3
+```
+
+**Important:** These formulas depend on the operations allowed by the original problem. The code alone does not explain why these candidate counts are valid.
+
+## 7. Step 6: If neither pattern matches
+
+```cpp
+return -1;
+```
+
+If neither counter reaches `n`, the array does not match either pattern, so the code returns `-1`.
+
+## 8. Complexity Analysis
+
+- **Time Complexity:** \(O(n)\) — the loop checks each adjacent pair once.
+- **Auxiliary Space:** \(O(1)\) — only a few variables are used.
+
+## 9. What to Remember
+
+- `asc` checks the ascending circular pattern.
+- `dsc` checks the descending circular pattern.
+- `% n` allows wraparound from the end to the beginning.
+- `min(a, b)` selects the smaller candidate.
+- The final formulas must be understood using the problem's specific allowed operations.
