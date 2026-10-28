@@ -5,6 +5,7 @@ private:
     int dfs(int i, int j, int temp, vector<vector<int>>& nums){
         if(i >= n || j >= m){
             return INT_MAX;
+            
         }
         temp ^= nums[i][j];
         if(i == n-1 && j == m-1){
