@@ -16,6 +16,7 @@ class Solution {
         }
         else{
             ans.push_back(0);
+            
         }
         for(int right= k ; right < n;right++){
             while(!q.empty() && q.front() <= right - k){
