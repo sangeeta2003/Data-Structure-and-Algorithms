@@ -22,6 +22,7 @@ class Solution {
             while(!q.empty() && q.front() <= right - k){
                 q.pop();
             }
+            
             if(arr[right] < 0){
                 q.push(right);
             }
