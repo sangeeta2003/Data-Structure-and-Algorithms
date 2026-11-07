@@ -10,6 +10,7 @@ public:
 
         vector<int> cnt(n + 1), ans(q.size());
         int l = 0, r = 0, active = 0;
+        
 
         for (auto [t, i] : q) {
             while (r < logs.size() && logs[r][1] <= t)
