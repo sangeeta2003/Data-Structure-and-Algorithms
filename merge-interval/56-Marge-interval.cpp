@@ -35,3 +35,7 @@ public:
         return res;
     }
 };
+// Case	Changed elements	Remaining range
+// 1	Two smallest	nums[n-1] - nums[2]
+// 2	One smallest + one largest	nums[n-2] - nums[1]
+// 3	Two largest	nums[n-3] - nums[0]
