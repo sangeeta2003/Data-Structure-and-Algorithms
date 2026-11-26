@@ -3,9 +3,7 @@ class Solution {
     long long totalCnt(vector<int>& piles, int speed){
         long long cnt = 0;
         for(int i = 0 ; i < piles.size();i++){
-            cnt = cnt + piles[i] / speed;
-            if(piles[i] % speed != 0) cnt++;
-
+            cnt += ceil((double)piles[i] / speed);
         }
         return cnt;
     }
